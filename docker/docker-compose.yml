@@ -1,0 +1,41 @@
+version: "3"
+services:
+  3m:
+    image: ${BUILD_REGISTRY}${BUILD_GROUP}${BUILD_IMAGE}:${BUILD_VERSION}
+    working_dir: ${WORKING_DIR:-/opt/3m}
+    volumes:
+      - .:${WORKING_DIR:-/opt/3m}
+      - ${_DOCKER_HOME:-.docker}:/root/.docker
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - ${ENVFILE:-.env}
+  lint:
+    image: ${LINT_REGISTRY}${LINT_GROUP}${LINT_IMAGE}:${LINT_VERSION}
+    working_dir: ${WORKING_DIR:-/opt/3m}
+    volumes:
+      - .:${WORKING_DIR:-/opt/3m}
+      - .:${WORKING_DIR:-/tmp/lint}
+      - ${_DOCKER_HOME:-.docker}:/root/.docker
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - ${ENVFILE:-.env}
+  source:
+    image: ${SOURCE_REGISTRY}${SOURCE_GROUP}${SOURCE_IMAGE}:${SOURCE_VERSION}
+    working_dir: ${WORKING_DIR:-/opt/3m}
+    volumes:
+      - .:${WORKING_DIR:-/opt/3m}
+      - ${_DOCKER_HOME:-.docker}:/root/.docker
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - ${ENVFILE:-.env}
+
+  target:
+    image: ${TARGET_REGISTRY}${TARGET_GROUP}${TARGET_IMAGE}:${TARGET_VERSION}
+    working_dir: ${WORKING_DIR:-/opt/3m}
+    volumes:
+      - .:${WORKING_DIR:-/opt/3m}
+      - ${_DOCKER_HOME:-.docker}:/root/.docker
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - ${ENVFILE:-.env}
+

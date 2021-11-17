@@ -1,0 +1,39 @@
+name: ci
+on:  
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: env
+      run: |
+        set -x
+        #
+        {
+          grep "=" ".env.template" | sed -e '/^#/d;/^\s*$/d;/=$/d'
+          echo "TARGET_VERSION=${GITHUB_REF:10}"
+          echo "TARGET_BUILD=${{ github.run_number }}"
+          echo "TARGET_REGISTRY_TOKEN=${{ secrets.TARGET_REGISTRY_TOKEN }}"
+          echo "TARGET_REGISTRY_USER=${{ github.actor }}"
+        }  >> "${GITHUB_ENV}"
+        #
+        echo "INFO: GITHUB_ENV:"
+        ln -s "${GITHUB_ENV}" .env
+    - name: preaction
+      run: |
+        set -x
+        make preaction
+    - name: runaction
+      run: |
+        set -x
+        make runaction
+    - name: postaction
+      run: |
+        set -x
+        make postaction
+
