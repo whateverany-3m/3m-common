@@ -8,7 +8,8 @@ set -x
   echo "TARGET_REGISTRY_USER=${TARGET_REGISTRY_USER}"
 }  >> "${GITHUB_ENV}"
 #
-echo "INFO: GITHUB_ENV:"
+echo "INFO: begin GITHUB_ENV="${GITHUB_ENV}""
 cat "${GITHUB_ENV}"
+echo "INFO: end GITHUB_ENV="${GITHUB_ENV}""
 
 ln -s "${GITHUB_ENV}" .env
