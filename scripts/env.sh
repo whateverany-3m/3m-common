@@ -2,12 +2,13 @@
 set -x
 {
   grep "=" ".env.template" | sed -e '/^#/d;/^\s*$/d;/=$/d'
-  echo "TARGET_VERSION=${GITHUB_REF:10}"
-  echo "TARGET_BUILD=${{ github.run_number }}"
-  echo "TARGET_REGISTRY_TOKEN=${{ secrets.TARGET_REGISTRY_TOKEN }}"
-  echo "TARGET_REGISTRY_USER=${{ github.actor }}"
+  echo "TARGET_VERSION=${TARGET_VERSION}"
+  echo "TARGET_BUILD=${TARGET_BUILD}"
+  echo "TARGET_REGISTRY_TOKEN=${TARGET_REGISTRY_TOKEN}"
+  echo "TARGET_REGISTRY_USER=${TARGET_REGISTRY_USER}"
 }  >> "${GITHUB_ENV}"
 #
 echo "INFO: GITHUB_ENV:"
-ln -s "${GITHUB_ENV}" .env
+cat "${GITHUB_ENV}"
 
+ln -s "${GITHUB_ENV}" .env
