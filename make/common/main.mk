@@ -67,10 +67,15 @@ _env-%: ci_auth
 .PHONY: _env-%
 
 .env: ci_auth
-	$(DOCKER_COMPOSE_RUN) make /bin/sh -c 'echo "INFO: Checking for .env";\
+	$(DOCKER_COMPOSE_RUN) -e "GITHUB_ENV=${GITHUB_ENV}" make /bin/sh -c 'echo "INFO: Checking for .env";\
 		if [[ $\! -e "$(ENVFILE)" ]]; then \
-		  echo "INFO: .env doesn$'t exist, copying .env.template to $(ENVFILE)" ;\
-			cp .env.template $(ENVFILE) ;\
+		  if [[ -e "${GITHUB_ENV}" ]]; then \
+		    echo "INFO: Using ${GITHUB_ENV} for $(ENVFILE)" ;\
+			  cp ${GITHUB_ENV} $(ENVFILE) ;\
+			else \
+		    echo "INFO: .env doesn$'t exist, copying .env.template to $(ENVFILE)" ;\
+			  cp .env.template $(ENVFILE) ;\
+			fi \
     fi'
 .PHONY: .env
 
