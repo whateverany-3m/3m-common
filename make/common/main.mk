@@ -66,9 +66,9 @@ _env-%:
 
 .env:
 	@echo "INFO: Checking for .env";
-	@ if [ \! -e .env ]; then \
-	  echo "INFO: .env doesn't exist, copying $(ENVFILE)"; \
-	  cp $(ENVFILE) .env; \
+	@if [ \! -e .env ]; then \
+	  echo "INFO: .env doesn't exist, copying .env.template to $(ENVFILE)"; \
+	  cp .env.template $(ENVFILE); \
 	fi
 .PHONY: .env
 
