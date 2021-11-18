@@ -13,6 +13,10 @@ TARGET_DEPS := .env $(foreach _t,${TARGET_ENVS},_env-$(_t) )
 export TARGET_SEMANTIC_VERSION
 export TARGET_SEMANTIC_RC
 
+ci_login:
+	echo "${TARGET_REGISTRY_TOKEN}" | docker login --username "${TARGET_REGISTRY_USER}" --password-stdin "${TARGET_REGISTRY}"
+.PHONY: ci_login
+
 ###############################################################################
 # setup .env file
 ###############################################################################
