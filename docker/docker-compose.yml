@@ -7,6 +7,8 @@ services:
       - .:${WORKING_DIR:-/opt/app}
       - ${_DOCKER_HOME:-.docker}:/root/.docker
       - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - ${ENVFILE_DEFAULTS:-.env.template}
   3m:
     image: ${BUILD_REGISTRY}${BUILD_GROUP}${BUILD_IMAGE}:${BUILD_VERSION}
     working_dir: ${WORKING_DIR:-/opt/app}

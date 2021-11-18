@@ -1,6 +1,7 @@
 DOCKER_COMPOSE_YML := $(3M_ROOT)/3m-common/docker/docker-compose.yml
 DOCKER_COMPOSE_SHELLS ?= 3m-root-/bin/sh lint-root-/bin/bash source-root-/bin/sh target-root-/bin/sh
 ENVFILE ?= .env
+ENVFILE_DEFAULTS ?= .env.template
 TARGET_REGISTRY ?= ghcr.io
 TARGET_SEMANTIC_VERSION ?= $(TARGET_VERSION)
 TARGET_SEMANTIC_RC ?= $(TARGET_SEMANTIC_VERSION)-rc.$(TARGET_BUILD)
