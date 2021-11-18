@@ -67,7 +67,8 @@ _env-%: ci_auth
 .PHONY: _env-%
 
 .env: ci_auth
-	$(DOCKER_COMPOSE_RUN) -e "GITHUB_ENV=${GITHUB_ENV}" make /bin/sh -c 'echo "INFO: Checking for .env";\
+	$(DOCKER_COMPOSE_RUN) -e "GITHUB_ENV=${GITHUB_ENV}" make /bin/sh -c 'set -x ;\
+		echo "INFO: Checking for .env";\
 		if [[ $\! -e "$(ENVFILE)" ]]; then \
 		  if [[ -e "${GITHUB_ENV}" ]]; then \
 		    echo "INFO: Using ${GITHUB_ENV} for $(ENVFILE)" ;\

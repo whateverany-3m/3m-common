@@ -1,4 +1,5 @@
 #!/bin/sh
+set -x
 if [ "${CI_DEBUG}" = "true"]; then
   set -x
 fi
