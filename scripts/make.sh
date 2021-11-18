@@ -33,7 +33,7 @@ _pre_login() {
 _run_build() {
   echo "INFO: _run_build"
   docker build \
-    "${TARGET_ARGS}" \
+    ${DOCKER_ARGS} \
     --no-cache \
     --tag "${TARGET_REGISTRY}${TARGET_GROUP}${TARGET_IMAGE}:${TARGET_SEMANTIC_RC}" \
     --tag "${TARGET_REGISTRY}${TARGET_GROUP}${TARGET_IMAGE}:${TARGET_SEMANTIC_VERSION}" \
