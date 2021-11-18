@@ -13,14 +13,14 @@ TARGET_DEPS := .env $(foreach _t,${TARGET_ENVS},_env-$(_t) )
 export TARGET_SEMANTIC_VERSION
 export TARGET_SEMANTIC_RC
 
-ci_login:
+ci_login: .env
 	echo "${TARGET_REGISTRY_TOKEN}" | docker login --username "${TARGET_REGISTRY_USER}" --password-stdin "${TARGET_REGISTRY}"
 .PHONY: ci_login
 
 ###############################################################################
 # setup .env file
 ###############################################################################
-ci_env:
+ci_env: .env
 	$(DOCKER_COMPOSE_RUN) $(DOCKER_COMPOSE_ARGS) 3m ./3m-common/scripts/make.sh ci_env
 .PHONY: ci_env
 
