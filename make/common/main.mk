@@ -13,14 +13,11 @@ TARGET_DEPS := .env $(foreach _t,${TARGET_ENVS},_env-$(_t) )
 export TARGET_SEMANTIC_VERSION
 export TARGET_SEMANTIC_RC
 
-ci_login: .env
-	echo "${TARGET_REGISTRY_TOKEN}" | docker login --username "${TARGET_REGISTRY_USER}" --password-stdin "${TARGET_REGISTRY}"
-.PHONY: ci_login
-
 ###############################################################################
 # setup .env file
 ###############################################################################
 ci_env: .env
+	echo "${TARGET_REGISTRY_TOKEN}" | docker login --username "${TARGET_REGISTRY_USER}" --password-stdin "${TARGET_REGISTRY}"
 	$(DOCKER_COMPOSE_RUN) $(DOCKER_COMPOSE_ARGS) 3m ./3m-common/scripts/make.sh ci_env
 .PHONY: ci_env
 
@@ -37,6 +34,7 @@ define RULE
 $(1): $(TARGET_DEPS)
 	$(eval CI_JOB = $(word 1,$(subst -, ,$(1)))) \
 	$(eval DOCKER_COMPOSE_SERVICE = $(word 2,$(subst -, ,$(1)))) \
+	echo "${TARGET_REGISTRY_TOKEN}" | docker login --username "${TARGET_REGISTRY_USER}" --password-stdin "${TARGET_REGISTRY}"
 	$(DOCKER_COMPOSE_RUN) $(DOCKER_COMPOSE_ARGS) $(DOCKER_COMPOSE_SERVICE) ./3m-common/scripts/make.sh $(CI_JOB)
 .PHONY: $(1)
 endef
