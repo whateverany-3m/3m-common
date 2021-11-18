@@ -68,7 +68,7 @@ _env-%: ci_auth
 
 .env: ci_auth
 	$(DOCKER_COMPOSE_RUN) make /bin/sh -c 'echo "INFO: Checking for .env";\
-		if [ \! -e .env ]; then \
+		if [[ $\! -e "$(ENVFILE)" ]]; then \
 		  echo "INFO: .env doesn$'t exist, copying .env.template to $(ENVFILE)" ;\
 			cp .env.template $(ENVFILE) ;\
     fi'

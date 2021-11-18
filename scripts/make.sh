@@ -5,7 +5,7 @@ fi
 
 _ci_env() {
   echo "INFO: _ci_env"
-  if [ "${GITHUB_ENV}" = "" ]; then
+  if [[ "${GITHUB_ENV}" = "" ]]; then
     GITHUB_ENV=$(mktemp)
   fi
   {
@@ -19,8 +19,10 @@ _ci_env() {
   echo "INFO: begin GITHUB_ENV="${GITHUB_ENV}""
   cat "${GITHUB_ENV}"
   echo "INFO: end GITHUB_ENV="${GITHUB_ENV}""
-  
-  if [ \! -e "${ENVFILE}" ]; then
+ 
+  ENVFILE="${ENVFILE:-.env}" 
+  echo "INFO: ENVFILE="${ENVFILE}""
+  if [[ \! -e "${ENVFILE}" ]]; then
     cp "${GITHUB_ENV}" "${ENVFILE}"
   fi
 }
