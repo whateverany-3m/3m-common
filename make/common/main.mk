@@ -22,7 +22,7 @@ ci_auth:
 .PHONY: ci_auth
 
 ci_env: ci_auth .env
-	$(DOCKER_COMPOSE_RUN) $(DOCKER_ARGS) 3m ./3m-common/scripts/make.sh ci_env
+	$(DOCKER_COMPOSE_RUN) $(DOCKER_ARGS) make ./3m-common/scripts/make.sh ci_env
 .PHONY: ci_env
 
 ###############################################################################
@@ -57,7 +57,7 @@ endef
 $(foreach _t,$(DOCKER_COMPOSE_SHELLS),$(eval $(call RULE,$(_t))))
 
 _env-%: ci_auth
-	$(DOCKER_COMPOSE_RUN) -e $(*)="$(subst $\",,$($(*)))" 3m /bin/sh -c 'echo "INFO: Checking for $(*)";\
+	$(DOCKER_COMPOSE_RUN) -e $(*)="$(subst $\",,$($(*)))" make /bin/sh -c 'echo "INFO: Checking for $(*)";\
 		if [[ -z "$${$(*)+set}" ]]; then \
       echo "ERROR: Environment variable $(*) not set"; \
       exit 1; \
@@ -67,7 +67,7 @@ _env-%: ci_auth
 .PHONY: _env-%
 
 .env: ci_auth
-	$(DOCKER_COMPOSE_RUN) 3m /bin/sh -c 'echo "INFO: Checking for .env";\
+	$(DOCKER_COMPOSE_RUN) make /bin/sh -c 'echo "INFO: Checking for .env";\
 		if [ \! -e .env ]; then \
 		  echo "INFO: .env doesn$'t exist, copying .env.template to $(ENVFILE)" ;\
 			cp .env.template $(ENVFILE) ;\

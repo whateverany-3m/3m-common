@@ -1,5 +1,12 @@
 version: "3"
 services:
+  make:
+    image: ${BUILD_REGISTRY}${BUILD_GROUP}${BUILD_IMAGE}:${BUILD_VERSION}
+    working_dir: ${WORKING_DIR:-/opt/3m}
+    volumes:
+      - .:${WORKING_DIR:-/opt/3m}
+      - ${_DOCKER_HOME:-.docker}:/root/.docker
+      - /var/run/docker.sock:/var/run/docker.sock
   3m:
     image: ${BUILD_REGISTRY}${BUILD_GROUP}${BUILD_IMAGE}:${BUILD_VERSION}
     working_dir: ${WORKING_DIR:-/opt/3m}
