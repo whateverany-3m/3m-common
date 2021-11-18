@@ -20,7 +20,7 @@ ci_login:
 ###############################################################################
 # setup .env file
 ###############################################################################
-ci_env: $(TARGET_DEPS)
+ci_env:
 	$(DOCKER_COMPOSE_RUN) $(DOCKER_COMPOSE_ARGS) 3m ./3m-common/scripts/make.sh ci_env
 .PHONY: ci_env
 
