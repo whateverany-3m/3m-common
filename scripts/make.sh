@@ -3,8 +3,8 @@ if [ "${CI_DEBUG}" = "true"]; then
   set -x
 fi
 
-_env_action() {
-  echo "INFO: _env_action"
+_ci_env() {
+  echo "INFO: _ci_env"
   if [ "${GITHUB_ENV}" = "" ]; then
     GITHUB_ENV=$(mktemp)
   fi
@@ -56,11 +56,11 @@ _post_logout() {
   docker logout "${TARGET_REGISTRY}"
 }
 
-ci_env_action() {
+ci_env() {
   echo "INFO: ###############################################################"
-  echo "INFO: ci_env_action"
+  echo "INFO: ci_env"
   echo "INFO: ###############################################################"
-  _env_action
+  _ci_env
 }
 
 ci_pre_action() {
@@ -109,8 +109,8 @@ for TARGET in ${@}
 do
   echo "INFO: TARGET=${TARGET}"
   case "${TARGET}" in
-    (ci_env_action)
-      ci_env_action
+    (ci_env)
+      ci_env
       ;;
     (ci_pre_action)
       ci_pre_action
