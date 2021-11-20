@@ -40,7 +40,7 @@ _build:
 		--no-cache \
 	  --tag $(TARGET_REGISTRY)$(TARGET_GROUP)$(TARGET_IMAGE):$(TARGET_SEMANTIC_RC) \
 	  --tag $(TARGET_REGISTRY)$(TARGET_GROUP)$(TARGET_IMAGE):$(TARGET_SEMANTIC_VERSION) \
-	  --file Dockerfile \
+	  --file src/Dockerfile \
 	  .
 .PHONY: _build
 
