@@ -75,7 +75,7 @@ shell_$(1): $(TARGET_DEPS)
 	$(DOCKER_COMPOSE_RUN) $(DOCKER_COMPOSE_ARGS) --user $(SHELL_USER) --entrypoint "" $(DOCKER_COMPOSE_SERVICE) $(SERVICE_SHELL)
 .PHONY: $(1)
 endef
-$(foreach _t,$(DOCKER_COMPOSE_SERVICES),$(eval $(call RULE,$(_t))))
+$(foreach _t,$(DOCKER_COMPOSE_SHELLS),$(eval $(call RULE,$(_t))))
 
 _env-%:
 	if [ "${${*}}" = "" ]; then \
